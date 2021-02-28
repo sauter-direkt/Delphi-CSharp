@@ -6,11 +6,14 @@ program App;
 
 uses
   System.SysUtils,
-  UStarter in 'UStarter.pas';
+  UStarter in 'UStarter.pas',
+  UEngine in 'UEngine.pas',
+  UCommon in 'UCommon.pas';
 
 begin
   try
-    TStarter.Execute;
+    //TStarter.Execute;
+    TEngine.Execute;
     readln;
   except
     on E: Exception do

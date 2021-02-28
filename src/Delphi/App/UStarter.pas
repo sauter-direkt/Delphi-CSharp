@@ -10,7 +10,7 @@ type
       DLL_NAME  = 'Starter.dll';
       FUNK_NAME = 'Start';
     type
-      TFuncStart=function(var Value: integer): boolean; stdcall;
+      TFuncStart=function(var ASrv: IInterface): boolean; stdcall;
   public
     constructor Create;
     destructor Destroy; override;
@@ -18,9 +18,7 @@ type
     FhDll: THandle;
     FFunc: TFuncStart;
   public
-    function Start(var Value: integer): boolean;
-  public
-    class procedure Execute;
+    function Execute(var Aif: IInterface): boolean;
   end;
 
 implementation
@@ -59,27 +57,9 @@ begin
 end;
 
 
-function TStarter.Start(var Value: integer): boolean;
+function TStarter.Execute(var Aif: IInterface): boolean;
 begin
-  Result := FFunc(Value);
+  Result := FFunc(Aif);
 end;
-
-class procedure TStarter.Execute;
-var
-  LoDll  : TStarter;
-  LiValue: integer;
-begin
-  LoDll := TStarter.Create;
-  try
-    LiValue := -100;
-    if LoDll.Start(LiValue) then
-      writeln('Success:', LiValue, '!!!')
-    else
-      writeln('Failure!!!')
-  finally
-    FreeAndNil(LoDll);
-  end;
-end;
-
 
 end.
